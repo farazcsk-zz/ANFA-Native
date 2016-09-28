@@ -27,6 +27,7 @@ class iosTest extends Component {
     };
 
     this.alertTest = this.alertTest.bind(this);
+    this.login = this.login.bind(this);
   }
 
   alertTest() {
@@ -35,6 +36,28 @@ class iosTest extends Component {
       null,
       text => console.log("You entered "+text)
     );
+  }
+
+  login() {
+    fetch("http://localhost:3000/api/Accounts/login", {
+      method: "POST",
+      headers:{
+        "Accept": "application/json", 
+        "Content-Type": "application/json" 
+      }, 
+      body: JSON.stringify({
+        username: this.state.username, 
+        password: this.state.password
+      })
+    })
+    .then((response) => response.json())
+    .then((responseData) => {
+      AlertIOS.alert(
+        "POST Response",
+        "Response Body -> " + JSON.stringify(responseData)
+      )
+    })
+    .done();
   }
   
   render() {
@@ -54,11 +77,11 @@ class iosTest extends Component {
         />
          <TextInput
           style={{height: 40, borderColor: 'white', borderBottomColor:'grey', borderWidth: 1, margin: 10}}
-          onChangeText={(text) => this.setState({username: text})}
+          onChangeText={(text) => this.setState({password: text})}
           multiline={true}
           placeholder='Password'
         />
-        <TouchableHighlight  onPress={this.alertTest}>
+        <TouchableHighlight  onPress={this.login}>
           <Image
             style={{width: 50, height: 50, margin: 10}}
             source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
