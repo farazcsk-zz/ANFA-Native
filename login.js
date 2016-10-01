@@ -4,7 +4,7 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   AppRegistry,
   StyleSheet,
@@ -15,8 +15,14 @@ import {
   AlertIOS,
   TouchableHighlight
 } from 'react-native';
+import ViewWorkouts from './ViewWorkouts';
 
 class Login extends Component {
+  
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    navigator: PropTypes.object.isRequired,
+  }
 
   constructor(props) {
     super(props);
@@ -52,10 +58,15 @@ class Login extends Component {
     })
     .then((response) => response.json())
     .then((responseData) => {
-      AlertIOS.alert(
-        "POST Response",
-        "Response Body -> " + JSON.stringify(responseData)
-      )
+      // AlertIOS.alert(
+      //   "POST Response",
+      //   "Response Body -> " + JSON.stringify(responseData)
+      // )
+      this.props.navigator.push({
+      	title: 'My Workouts ',
+      	component: ViewWorkouts,
+      });
+
     })
     .done();
   }
