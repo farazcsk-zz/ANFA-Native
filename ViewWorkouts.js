@@ -31,24 +31,27 @@ class ViewWorkouts extends Component {
     fetch("http://localhost:3000/api/Workouts?filter=%7B%22limit%22%3A%20%2210%22%7D&access_token=iTk6s6Boej92VgEFrKNnvg4rqD1uXjZmAUoNtHKgIqOwxi0LpnEToMK8SKYcjXuC")
     .then((response) => response.json())
     .then((responseData) => {
-      // AlertIOS.alert(
-      //   "POST Response",
-      //   "Response Body -> " + JSON.stringify(responseData)
-      // )
       this.setState({workouts: responseData});
     })
     .done();
   }
   
-  render() {
+  componentDidMount() {
   	this.getWorkouts()
+  }
+  
+  render() {
 	var workouts = this.state.workouts.map(function(workout) {
 		return (
-			<Text style={styles.welcome} >{workout.title}</Text>
+			 <TouchableHighlight  key={workout.id}>
+          		<View style={styles.workout}>
+          			<Text style={styles.welcome} >{workout.title}</Text>
+          		</View>
+        	</TouchableHighlight>
 		); 
 	});
     return (
-      <View style={styles.workout}>
+      <View>
         {workouts}
       </View>
     );
@@ -57,17 +60,15 @@ class ViewWorkouts extends Component {
 
 const styles = StyleSheet.create({
   workout: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 0.5,
+    margin: 15,
     borderRadius: 0,
-    borderWidth: 0.5,
+    borderWidth: 2,
     borderColor: '#36333C'
   },
   welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    fontSize: 10,
+    padding:10
   },
 });
 
