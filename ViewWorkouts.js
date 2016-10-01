@@ -18,8 +18,8 @@ import {
 
 class ViewWorkouts extends Component {
 
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
   
     this.state = {
     };
@@ -27,28 +27,19 @@ class ViewWorkouts extends Component {
   }
 
   getWorkouts() {
-    fetch("http://localhost:3000/api/Accounts/login", {
-      method: "POST",
-      headers:{
-        "Accept": "application/json", 
-        "Content-Type": "application/json" 
-      }, 
-      body: JSON.stringify({
-        username: this.state.username, 
-        password: this.state.password
-      })
-    })
+    fetch("http://localhost:3000/api/Workouts?filter=%7B%22limit%22%3A%20%2210%22%7D&access_token=iTk6s6Boej92VgEFrKNnvg4rqD1uXjZmAUoNtHKgIqOwxi0LpnEToMK8SKYcjXuC")
     .then((response) => response.json())
     .then((responseData) => {
-      // AlertIOS.alert(
-      //   "POST Response",
-      //   "Response Body -> " + JSON.stringify(responseData)
-      // )
+      AlertIOS.alert(
+        "POST Response",
+        "Response Body -> " + JSON.stringify(responseData)
+      )
     })
     .done();
   }
   
   render() {
+  	this.getWorkouts()
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
@@ -64,7 +55,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F3F3F3',
   },
   welcome: {
     fontSize: 20,
@@ -73,7 +64,7 @@ const styles = StyleSheet.create({
   },
   instructions: {
     textAlign: 'center',
-    color: '#333333',
+    color: '#36333C',
     marginBottom: 5,
   },
 });

@@ -24,8 +24,8 @@ class Login extends Component {
     navigator: PropTypes.object.isRequired,
   }
 
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
   
     this.state = {
       username: '',
@@ -81,13 +81,13 @@ class Login extends Component {
           Please login below
         </Text>
         <TextInput
-          style={{height: 40, borderColor: 'white', borderBottomColor:'grey', borderWidth: 1, margin: 10}}
+          style={{height: 40, borderColor: '#F3F3F3', borderBottomColor:'#36333C', borderWidth: 1, margin: 10}}
           onChangeText={(text) => this.setState({username: text})}
           multiline={true}
           placeholder='Username'
         />
          <TextInput
-          style={{height: 40, borderColor: 'white', borderBottomColor:'grey', borderWidth: 1, margin: 10}}
+          style={{height: 40, borderColor: '#F3F3F3', borderBottomColor:'#36333C', borderWidth: 1, margin: 10}}
           onChangeText={(text) => this.setState({password: text})}
           multiline={true}
           placeholder='Password'
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F3F3F3',
   },
   welcome: {
     fontSize: 20,
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   },
   instructions: {
     textAlign: 'center',
-    color: '#333333',
+    color: '#36333C',
     marginBottom: 5,
   },
 });
