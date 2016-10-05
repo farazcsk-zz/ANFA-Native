@@ -19,11 +19,6 @@ import ViewWorkouts from './ViewWorkouts';
 
 
 class Login extends Component {
-  
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    navigator: PropTypes.object.isRequired,
-  }
 
   constructor(props, context) {
     super(props, context);
@@ -76,7 +71,7 @@ class Login extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          WORKOUT
+          ANFA
         </Text>
         <Text style={styles.instructions}>
           Please login below
