@@ -8,6 +8,7 @@ import React, { Component, PropTypes } from 'react';
 import {
   AppRegistry,
   StyleSheet,
+  ScrollView,
   Text,
   TextInput,
   View,
@@ -65,9 +66,9 @@ class ViewWorkouts extends Component {
   	});
 
     return (
-      <View style={{backgroundColor: '#F3F3F3'}}>
+      <ScrollView style={{backgroundColor: '#F3F3F3'}}>
         {workouts}
-      </View>
+      </ScrollView>
     );
   }
 }
