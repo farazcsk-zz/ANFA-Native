@@ -65,7 +65,7 @@ class ViewWorkouts extends Component {
   	});
 
     return (
-      <View>
+      <View style={{backgroundColor: '#F3F3F3'}}>
         {workouts}
       </View>
     );

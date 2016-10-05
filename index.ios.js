@@ -34,6 +34,8 @@ export default class iosTest extends Component {
         }}
         style={{flex: 1}}
         barTintColor='#36BA93'
+        tintColor='#FFFFFF'
+        titleTextColor='#FFFFFF'
       />
     );
   }
