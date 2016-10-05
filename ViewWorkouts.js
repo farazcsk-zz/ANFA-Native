@@ -15,14 +15,10 @@ import {
   AlertIOS,
   TouchableHighlight
 } from 'react-native';
-import Login from './login';
+import Workout from './workout';
 
 class ViewWorkouts extends Component {
 
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    navigator: PropTypes.object.isRequired,
-  }
   constructor(props, context) {
     super(props, context);
   
@@ -47,14 +43,14 @@ class ViewWorkouts extends Component {
   	this.getWorkouts()
   }
 
- 
 
   render() {
 
      var viewWorkout = function(workout) {   
       this.props.navigator.push({
-        title: 'My Workouts ',
-        component: ViewWorkouts,
+        title: workout.title,
+        component: Workout,
+        passProps: { workoutId: workout.id }
       });
     }.bind(this)
 

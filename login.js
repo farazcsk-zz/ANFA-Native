@@ -19,11 +19,6 @@ import ViewWorkouts from './ViewWorkouts';
 
 
 class Login extends Component {
-  
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    navigator: PropTypes.object.isRequired,
-  }
 
   constructor(props, context) {
     super(props, context);
