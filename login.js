@@ -15,7 +15,7 @@ import {
   AlertIOS,
   TouchableHighlight
 } from 'react-native';
-import ViewWorkouts from './ViewWorkouts';
+import ViewWorksheets from './ViewWorksheets';
 
 
 class Login extends Component {
@@ -60,7 +60,7 @@ class Login extends Component {
       // )
       this.props.navigator.push({
       	title: 'My Workouts ',
-      	component: ViewWorkouts,
+      	component: ViewWorksheets,
       });
 
     })

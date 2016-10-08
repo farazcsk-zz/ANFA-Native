@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-class iosTest extends Component {
+class ANFANative extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('iosTest', () => iosTest);
+AppRegistry.registerComponent('ANFANative', () => ANFANative);
