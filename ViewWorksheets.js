@@ -16,50 +16,50 @@ import {
   AlertIOS,
   TouchableHighlight
 } from 'react-native';
-import Workout from './workout';
+import Worksheet from './worksheet';
 
-class ViewWorkouts extends Component {
+class ViewWorksheets extends Component {
 
   constructor(props, context) {
     super(props, context);
   
     this.state = {
-    	workouts: []
+    	worksheets: []
     };
-    this.getWorkouts = this.getWorkouts.bind(this);
+    this.getWorksheets = this.getWorksheets.bind(this);
     
   }
 
  
-  getWorkouts() {
-    fetch("http://localhost:3000/api/Workouts?filter=%7B%22limit%22%3A%20%2210%22%7D&access_token=iTk6s6Boej92VgEFrKNnvg4rqD1uXjZmAUoNtHKgIqOwxi0LpnEToMK8SKYcjXuC")
+  getWorksheets() {
+    fetch("http://localhost:3000/api/Worksheets?access_token=iTk6s6Boej92VgEFrKNnvg4rqD1uXjZmAUoNtHKgIqOwxi0LpnEToMK8SKYcjXuC")
     .then((response) => response.json())
     .then((responseData) => {
-      this.setState({workouts: responseData});
+      this.setState({worksheets: responseData});
     })
     .done();
   }
   
   componentDidMount() {
-  	this.getWorkouts()
+  	this.getWorksheets()
   }
 
 
   render() {
 
-     var viewWorkout = function(workout) {   
+     var viewWorksheet = function(worksheet) {   
       this.props.navigator.push({
-        title: workout.title,
-        component: Workout,
-        passProps: { workoutId: workout.id }
+        title: worksheet.title,
+        component: Worksheet,
+        passProps: { worksheetId: worksheet.id }
       });
     }.bind(this)
 
-  	var workouts = this.state.workouts.map(function(workout) {
+  	var worksheets = this.state.worksheets.map(function(worksheet) {
   		return (
-  			 <TouchableHighlight key={workout.id}  onPress={() => viewWorkout(workout)}>
-            		<View style={styles.workout}>
-            			<Text style={styles.welcome} >{workout.title}</Text>
+  			 <TouchableHighlight key={worksheet.id}  onPress={() => viewWorksheet(worksheet)}>
+            		<View style={styles.worksheet}>
+            			<Text style={styles.welcome} >{worksheet.title}</Text>
             		</View>
           </TouchableHighlight>
   		); 
@@ -67,14 +67,14 @@ class ViewWorkouts extends Component {
 
     return (
       <ScrollView style={{backgroundColor: '#F3F3F3'}}>
-        {workouts}
+        {worksheets}
       </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  workout: {
+  worksheet: {
     flex: 0.5,
     margin: 10,
     borderRadius: 0,
@@ -87,6 +87,6 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('ViewWorkouts', () => ViewWorkouts);
+AppRegistry.registerComponent('ViewWorksheets', () => ViewWorksheets);
 
-module.exports = ViewWorkouts;
+module.exports = ViewWorksheets;

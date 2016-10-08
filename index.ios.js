@@ -18,7 +18,7 @@ import {
 } from 'react-native';
 import Login from './login';
 
-export default class iosTest extends Component {
+export default class ANFANative extends Component {
 
   constructor(props) {
     super(props);  
@@ -43,4 +43,4 @@ export default class iosTest extends Component {
 
 
 
-AppRegistry.registerComponent('iosTest', () => iosTest);
+AppRegistry.registerComponent('ANFANative', () => ANFANative);

@@ -17,28 +17,32 @@ import {
 } from 'react-native';
 
 
-class Workout extends Component {
+class Worksheet extends Component {
 
   constructor(props, context) {
     super(props, context);  
 
     this.state = {
-      workout: {}
+      worksheet: {}
     };
   }
   
   componentDidMount() {
-     fetch("http://localhost:3000/api/Workouts/" + this.props.workoutId +"?filter=%7B%22include%22%3A%7B%22relation%22%3A%22sets%22%7D%7D&access_token=TbZ4UnDIN1jbRJ1xzVf5mTbEGkjR2kXZjEEeYVqiwHIwgytpFsjYCklHdIrzxBCW")
+     fetch("http://localhost:3000/api/Worksheets/" + this.props.worksheetId +"?filter=%7B%22include%22%3A%7B%22relation%22%3A%22sections%22%7D%7D&access_token=TbZ4UnDIN1jbRJ1xzVf5mTbEGkjR2kXZjEEeYVqiwHIwgytpFsjYCklHdIrzxBCW")
     .then((response) => response.json())
     .then((responseData) => {
-      this.setState({workout: responseData});
+      this.setState({worksheet: responseData});
+      // AlertIOS.alert(
+      //   "POST Response",
+      //   "Response Body -> " + JSON.stringify(responseData)
+      // )
     })
     .done();
   }
   render() {
     return (
     	<View style={styles.container}>
-           <Text style={styles.welcome}>{this.state.workout.title}</Text>
+           <Text style={styles.welcome}>{this.state.worksheet.title}</Text>
       </View>
     );
   }
@@ -58,6 +62,6 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('Workout', () => Workout);
+AppRegistry.registerComponent('Worksheet', () => Worksheet);
 
-module.exports = Workout;
+module.exports = Worksheet;
