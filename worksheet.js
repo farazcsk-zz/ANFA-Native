@@ -69,6 +69,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#36BA93',
     shadowColor: 'rgba(0, 0, 0, 0.117647)',
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 2
+    }
   },
   container: {
     backgroundColor: '#F3F3F3',

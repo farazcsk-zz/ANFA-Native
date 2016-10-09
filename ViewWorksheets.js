@@ -61,7 +61,7 @@ class ViewWorksheets extends Component {
 
   	var worksheets = this.state.worksheets.map(function(worksheet) {
   		return (
-  			 <TouchableHighlight key={worksheet.id}  onPress={() => viewWorksheet(worksheet)}>
+  			 <TouchableHighlight key={worksheet.id}  onPress={() => viewWorksheet(worksheet)} underlayColor='#36BA93' activeOpacity={0.25}>
             		<View style={styles.worksheet}>
             			<Text style={styles.welcome} >{worksheet.title}</Text>
             		</View>
@@ -83,7 +83,14 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 0,
     borderWidth: 2,
-    borderColor: '#36333C'
+    borderColor: '#36333C',
+    shadowColor: 'rgba(0, 0, 0, 0.117647)',
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 2
+    }
   },
   welcome: {
     fontSize: 10,
