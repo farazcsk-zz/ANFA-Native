@@ -13,7 +13,8 @@ import {
   Image,
   AlertIOS,
   TouchableHighlight,
-  NavigatorIOS
+  NavigatorIOS,
+  WebView
 } from 'react-native';
 
 
@@ -23,12 +24,15 @@ class Worksheet extends Component {
     super(props, context);  
 
     this.state = {
-      worksheet: {}
+      worksheet: {
+        sections:[]
+      },
+      html: ''
     };
   }
   
   componentDidMount() {
-     fetch("http://localhost:3000/api/Worksheets/" + this.props.worksheetId +"?filter=%7B%22include%22%3A%7B%22relation%22%3A%22sections%22%7D%7D&access_token=TbZ4UnDIN1jbRJ1xzVf5mTbEGkjR2kXZjEEeYVqiwHIwgytpFsjYCklHdIrzxBCW")
+     fetch("http://localhost:3000/api/Worksheets/" + this.props.worksheetId +"?filter=%7B%22include%22%3A%7B%22relation%22%3A%22sections%22%2C%22scope%22%3A%7B%22order%22%3A%22number%20ASC%22%2C%22include%22%3A%7B%22relation%22%3A%22tasks%22%2C%22scope%22%3A%7B%22order%22%3A%22number%20ASC%22%7D%7D%7D%7D%7D&access_token=TbZ4UnDIN1jbRJ1xzVf5mTbEGkjR2kXZjEEeYVqiwHIwgytpFsjYCklHdIrzxBCW")
     .then((response) => response.json())
     .then((responseData) => {
       this.setState({worksheet: responseData});
@@ -36,14 +40,17 @@ class Worksheet extends Component {
       //   "POST Response",
       //   "Response Body -> " + JSON.stringify(responseData)
       // )
+      // this.htmlCode = this.state.worksheet.sections[0].tasks[0].instructions;
+      this.setState({html: this.state.worksheet.sections[0].tasks[0].instructions });
     })
     .done();
   }
   render() {
     return (
-    	<View style={styles.container}>
-           <Text style={styles.welcome}>{this.state.worksheet.title}</Text>
-      </View>
+      <WebView
+        source={{html: this.state.html}}
+        style={{marginTop: 20}}
+      />
     );
   }
 }
