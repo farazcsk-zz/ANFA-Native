@@ -47,19 +47,30 @@ class Worksheet extends Component {
   }
   render() {
     return (
-      <WebView
-        source={{html: this.state.html}}
-        style={{marginTop: 20}}
-      />
+      <View style={styles.container}>
+        <View style={styles.instructions}>
+          <WebView
+            source={{html: this.state.html}}
+            style={{marginTop: 50}}
+          />
+        </View>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  instructions: {
+    height: 250,
+    margin: 10,
+    marginTop: 100,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 2,
+    borderColor: '#36BA93',
+    shadowColor: 'rgba(0, 0, 0, 0.117647)',
+  },
+  container: {
     backgroundColor: '#F3F3F3',
   },
   welcome: {

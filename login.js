@@ -70,42 +70,54 @@ class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          ANFA
-        </Text>
-        <Text style={styles.instructions}>
-          Please login below
-        </Text>
-        <TextInput
-          style={{height: 40, borderColor: '#F3F3F3', borderBottomColor:'#36333C', borderWidth: 1, margin: 10}}
-          onChangeText={(text) => this.setState({username: text})}
-          multiline={true}
-          placeholder='Username'
-        />
-         <TextInput
-          style={{height: 40, borderColor: '#F3F3F3', borderBottomColor:'#36333C', borderWidth: 1, margin: 10}}
-          onChangeText={(text) => this.setState({password: text})}
-          multiline={true}
-          placeholder='Password'
-        />
-        <TouchableHighlight  onPress={this.login}>
-          <Image
-            style={{width: 50, height: 50, margin: 10}}
-            source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+        <View style={styles.login}>
+          <Text style={styles.welcome}>
+            ANFA
+          </Text>
+          <Text style={styles.instructions}>
+            Please login below
+          </Text>
+          <TextInput
+            style={{height: 40, borderColor: '#FFFFFF', borderBottomColor:'#36333C', borderWidth: 1, margin: 10}}
+            onChangeText={(text) => this.setState({username: text})}
+            multiline={true}
+            placeholder='Username'
           />
-        </TouchableHighlight>
-
+           <TextInput
+            style={{height: 40, borderColor: '#FFFFFF', borderBottomColor:'#36333C', borderWidth: 1, margin: 10}}
+            onChangeText={(text) => this.setState({password: text})}
+            multiline={true}
+            placeholder='Password'
+          />
+          <TouchableHighlight style={styles.button} onPress={this.login}>
+            <Text style={{color: '#FFFFFF'}}>LOGIN</Text>
+          </TouchableHighlight>
+          </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  button: {
+    backgroundColor: '#36BA93',
+    padding: 10,
+    margin: 10
+  },
+  login: {
+    marginTop:200,
+    marginBottom:200,
+    margin: 10,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F3F3F3',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 2,
+    borderColor: '#36BA93',
+    shadowColor: 'rgba(0, 0, 0, 0.117647)',
+  },
+  container: {
+    backgroundColor: '#F3F3F3'
   },
   welcome: {
     fontSize: 20,
