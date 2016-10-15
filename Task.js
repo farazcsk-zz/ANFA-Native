@@ -76,10 +76,42 @@ class Task extends Component {
 		  }
 		 
 		function renderOption(option, selected, onSelect, index){
-		    const style = selected ? { fontWeight: 'bold', backgroundColor: '#36BA93', color: '#FFFFFF', height: 35, margin:10, padding: 10, fontFamily: 'Roboto-Black'} : {height: 35, margin:10, padding: 10, fontFamily: 'Roboto-Black'};
+		    const style = selected ? { 
+		    	fontWeight: 'bold', 
+		    	backgroundColor: '#36BA93', 
+		    	color: '#FFFFFF', 
+		    	height: 35, 
+		    	margin:10, 
+		    	padding: 10, 
+		    	fontFamily: 'Roboto-Medium', 
+		    	textAlign: 'center',
+		    	shadowColor: 'rgba(0, 0, 0, 0.117647)',
+				shadowOpacity: 0.8,
+				shadowRadius: 2,
+				shadowOffset: {
+					height: 1,
+					width: 2
+				},
+		    } : 
+		    {
+		    	backgroundColor: 'rgb(151, 151, 151)',
+		    	color: '#FFFFFF', 
+		    	height: 35, 
+		    	margin:10, 
+		    	padding: 10, 
+		    	fontFamily: 'Roboto-Medium', 
+		    	textAlign: 'center',
+		    	shadowColor: 'rgba(0, 0, 0, 0.117647)',
+				shadowOpacity: 0.8,
+				shadowRadius: 2,
+				shadowOffset: {
+					height: 1,
+					width: 2
+				},
+		    };
 		 
 		    return (
-		      <TouchableHighlight onPress={onSelect} key={index}>
+		      <TouchableHighlight onPress={onSelect} key={index} underlayColor='#36BA93'>
 		        <Text style={style}>{option}</Text>
 		      </TouchableHighlight>
 		    );
@@ -121,7 +153,9 @@ class Task extends Component {
 const styles = StyleSheet.create({
 	line: {
 		borderWidth: 1,
-		borderColor: '#36333C'
+		borderColor: '#36333C',
+		marginTop: 5,
+		marginBottom: 5
 	},
 	instructions: {
 		padding: 10,
