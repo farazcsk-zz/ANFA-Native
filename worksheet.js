@@ -66,14 +66,46 @@ class Worksheet extends Component {
 	}
 
 	handleNext(){
-		if(this.state.currentTaskIndex + 1 < this.state.worksheet.sections[this.state.currentSectionIndex].tasks.length) {
-			this.setState({currentTaskIndex: this.state.currentTaskIndex += 1, currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id})
+		if (this.state.worksheet.sections.length == this.state.currentSectionIndex + 1) {
+			if(this.state.currentTaskIndex + 1 < this.state.worksheet.sections[this.state.currentSectionIndex].tasks.length) {
+				this.setState({
+					currentTaskIndex: this.state.currentTaskIndex += 1, 
+					currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id
+				})
+			}
+		} else if(this.state.worksheet.sections[this.state.currentSectionIndex].tasks.length == this.state.currentTaskIndex + 1) {
+			this.setState({ 
+				currentSectionIndex: this.state.currentSectionIndex += 1, 
+				currentTaskIndex: this.state.currentTaskIndex = 0,  
+				currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id
+			});
+		} else {
+			this.setState({
+				currentTaskIndex: this.state.currentTaskIndex += 1, 
+				currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id
+			})
 		}
 	}
 
 	handlePrevious(){
-		if(this.state.currentTaskIndex != 0) {
-			this.setState({currentTaskIndex: this.state.currentTaskIndex -= 1, currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id})
+		if (this.state.currentSectionIndex === 0) { 
+			if(this.state.currentTaskIndex != 0) {
+				this.setState({
+					currentTaskIndex: this.state.currentTaskIndex -= 1, 
+					currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id
+				})
+			}
+		} else if (this.state.currentTaskIndex === 0) {
+			this.setState({
+				currentSectionIndex: this.state.currentSectionIndex -= 1,
+				currentTaskIndex: this.state.worksheet.sections[this.state.currentSectionIndex].tasks.length - 1,
+				currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.worksheet.sections[this.state.currentSectionIndex].tasks.length - 1].id
+			})
+		} else {
+			this.setState({
+				currentTaskIndex: this.state.currentTaskIndex -= 1, 
+				currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id
+			})
 		}
 	}
 
@@ -81,7 +113,9 @@ class Worksheet extends Component {
 		return (
 			<ScrollView style={styles.container}>
 				<Task
-					taskId={this.state.currentTaskId} 
+					taskId={this.state.currentTaskId}
+					taskIndex={this.state.currentTaskIndex}
+					sectionIndex={this.state.currentSectionIndex} 
 				/>
 				<Modal
 		        	animationType={"slide"}

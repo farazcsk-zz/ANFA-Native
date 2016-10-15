@@ -63,6 +63,8 @@ class Task extends Component {
 			<ScrollView style={styles.container}>
 				<View style={styles.instructions}>
 					<Text>{this.state.task.name}</Text>
+					<Text>{this.props.sectionIndex}</Text>
+					<Text>{this.props.taskIndex}</Text>
 					<WebView
 						source={{html: this.state.task.instructions}}
 					/>
