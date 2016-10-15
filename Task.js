@@ -18,6 +18,7 @@ import {
 	WebView,
 	Modal
 } from 'react-native';
+import { RadioButtons } from 'react-native-radio-buttons';
 
 
 class Task extends Component {
@@ -58,7 +59,34 @@ class Task extends Component {
 		}
 		 
 	}
+
 	render() {
+		const options = [
+			this.state.task.answer,
+			this.state.task.wrongAnswers[0],
+			this.state.task.wrongAnswers[1],
+			this.state.task.wrongAnswers[2]
+		]
+
+		function setSelectedOption(selectedOption){
+		    this.setState({
+		      selectedOption
+		    });
+		  }
+		 
+		function renderOption(option, selected, onSelect, index){
+		    const style = selected ? { fontWeight: 'bold'} : {};
+		 
+		    return (
+		      <TouchableHighlight onPress={onSelect} key={index}>
+		        <Text style={style}>{option}</Text>
+		      </TouchableHighlight>
+		    );
+		  }
+		 
+	    function renderContainer(optionNodes){
+			return <View>{optionNodes}</View>;
+	    }
 		return (
 			<ScrollView style={styles.container}>
 				<View style={styles.instructions}>
@@ -71,15 +99,18 @@ class Task extends Component {
 				</View>
 				
 				{this.state.task.type != 'Learn' ? 
-					<View style={styles.instructions}>
-						<Text>Question:</Text>
-				        <Text>{this.state.task.answer}</Text>
-				        <Text>{this.state.task.wrongAnswers[0]}</Text>
-				        <Text>{this.state.task.wrongAnswers[1]}</Text>
-				        <Text>{this.state.task.wrongAnswers[2]}</Text>
-					</View> 
+					<View style={{margin: 20}}>
+				      <RadioButtons
+				        options={ options }
+				        onSelection={ setSelectedOption.bind(this) }
+				        selectedOption={this.state.selectedOption }
+				        renderOption={ renderOption }
+				        renderContainer={ renderContainer }
+				      />
+				      <Text>Selected option: {this.state.selectedOption || 'none'}</Text>
+				    </View>
 				: null }
-        		
+
 			</ScrollView>
 		);
 	}
