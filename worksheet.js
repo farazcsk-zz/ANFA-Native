@@ -137,10 +137,10 @@ class Worksheet extends Component {
 		         	</View>
         		</Modal>
         		<TouchableHighlight style={styles.button} underlayColor='#36BA93' onPress={this.handlePrevious}>
-					<Text style={{color: '#36333C'}}>PREVIOUS</Text>
+					<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>PREVIOUS</Text>
 				</TouchableHighlight>
 				<TouchableHighlight style={styles.button} underlayColor='#36BA93' onPress={this.handleNext}>
-					<Text style={{color: '#36333C'}}>NEXT</Text>
+					<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>NEXT</Text>
 				</TouchableHighlight>
 			</ScrollView>
 		);
@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
 		borderColor: '#36BA93',
 		padding: 10,
 		margin: 10,
+		
 	},
 	instructions: {
 		height: 250,

@@ -33,7 +33,7 @@ export default class ANFANative extends Component {
 					title: 'Login',
 				}}
 				style={{flex: 1}}
-				barTintColor='#36BA93'
+				barTintColor='rgb(54, 186, 147)'
 				tintColor='#FFFFFF'
 				titleTextColor='#FFFFFF'
 			/>

@@ -18,6 +18,8 @@ import {
 	WebView,
 	Modal
 } from 'react-native';
+import { RadioButtons } from 'react-native-radio-buttons';
+import { Hr } from 'react-native-hr';
 
 
 class Task extends Component {
@@ -58,13 +60,71 @@ class Task extends Component {
 		}
 		 
 	}
+
 	render() {
+		const options = [
+			this.state.task.answer,
+			this.state.task.wrongAnswers[0],
+			this.state.task.wrongAnswers[1],
+			this.state.task.wrongAnswers[2]
+		]
+
+		function setSelectedOption(selectedOption){
+		    this.setState({
+		      selectedOption
+		    });
+		  }
+		 
+		function renderOption(option, selected, onSelect, index){
+		    const style = selected ? { 
+		    	fontWeight: 'bold', 
+		    	backgroundColor: '#36BA93', 
+		    	color: '#FFFFFF', 
+		    	height: 35, 
+		    	margin:10, 
+		    	padding: 10, 
+		    	fontFamily: 'Roboto-Medium', 
+		    	textAlign: 'center',
+		    	shadowColor: 'rgba(0, 0, 0, 0.117647)',
+				shadowOpacity: 0.8,
+				shadowRadius: 2,
+				shadowOffset: {
+					height: 1,
+					width: 2
+				},
+		    } : 
+		    {
+		    	backgroundColor: 'rgb(151, 151, 151)',
+		    	color: '#FFFFFF', 
+		    	height: 35, 
+		    	margin:10, 
+		    	padding: 10, 
+		    	fontFamily: 'Roboto-Medium', 
+		    	textAlign: 'center',
+		    	shadowColor: 'rgba(0, 0, 0, 0.117647)',
+				shadowOpacity: 0.8,
+				shadowRadius: 2,
+				shadowOffset: {
+					height: 1,
+					width: 2
+				},
+		    };
+		 
+		    return (
+		      <TouchableHighlight onPress={onSelect} key={index} underlayColor='#36BA93'>
+		        <Text style={style}>{option}</Text>
+		      </TouchableHighlight>
+		    );
+		  }
+		 
+	    function renderContainer(optionNodes){
+			return <ScrollView>{optionNodes}</ScrollView>;
+	    }
 		return (
 			<ScrollView style={styles.container}>
 				<View style={styles.instructions}>
-					<Text>{this.state.task.name}</Text>
-					<Text>{this.props.sectionIndex}</Text>
-					<Text>{this.props.taskIndex}</Text>
+					<Text style={{fontWeight: 'bold', fontFamily: 'Roboto-Black'}}>{this.state.task.name}</Text>
+					<View style={styles.line}></View>
 					<WebView
 						source={{html: this.state.task.instructions}}
 					/>
@@ -72,24 +132,36 @@ class Task extends Component {
 				
 				{this.state.task.type != 'Learn' ? 
 					<View style={styles.instructions}>
-						<Text>Question:</Text>
-				        <Text>{this.state.task.answer}</Text>
-				        <Text>{this.state.task.wrongAnswers[0]}</Text>
-				        <Text>{this.state.task.wrongAnswers[1]}</Text>
-				        <Text>{this.state.task.wrongAnswers[2]}</Text>
-					</View> 
+						<Text style={{fontWeight: 'bold', fontFamily: 'Roboto-Black'}}>Question:</Text>
+						<View style={styles.line}></View>
+				    	<RadioButtons
+					        options={ options }
+					        onSelection={ setSelectedOption.bind(this) }
+					        selectedOption={this.state.selectedOption }
+					        renderOption={ renderOption }
+					        renderContainer={ renderContainer }
+				    	/>
+				    	<Text style={{fontFamily: 'Roboto-LightItalic'}}>Selected option: {this.state.selectedOption || 'none'}</Text>
+				    </View>
 				: null }
-        		
+
 			</ScrollView>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
+	line: {
+		borderWidth: 1,
+		borderColor: '#36333C',
+		marginTop: 5,
+		marginBottom: 5
+	},
 	instructions: {
-		height: 250,
+		padding: 10,
+		minHeight: 250,
 		margin: 10,
-		marginTop: 50,
+		marginTop: 25,
 		flex: 1,
 		backgroundColor: '#FFFFFF',
 		borderWidth: 2,
