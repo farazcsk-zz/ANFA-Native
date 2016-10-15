@@ -19,6 +19,7 @@ import {
 	Modal
 } from 'react-native';
 import { RadioButtons } from 'react-native-radio-buttons';
+import { Hr } from 'react-native-hr';
 
 
 class Task extends Component {
@@ -75,7 +76,7 @@ class Task extends Component {
 		  }
 		 
 		function renderOption(option, selected, onSelect, index){
-		    const style = selected ? { fontWeight: 'bold'} : {};
+		    const style = selected ? { fontWeight: 'bold', backgroundColor: '#36BA93', color: '#FFFFFF'} : {};
 		 
 		    return (
 		      <TouchableHighlight onPress={onSelect} key={index}>
@@ -90,24 +91,25 @@ class Task extends Component {
 		return (
 			<ScrollView style={styles.container}>
 				<View style={styles.instructions}>
-					<Text>{this.state.task.name}</Text>
-					<Text>{this.props.sectionIndex}</Text>
-					<Text>{this.props.taskIndex}</Text>
+					<Text style={{fontWeight: 'bold'}}>{this.state.task.name}</Text>
+					<View style={styles.line}></View>
 					<WebView
 						source={{html: this.state.task.instructions}}
 					/>
 				</View>
 				
 				{this.state.task.type != 'Learn' ? 
-					<View style={{margin: 20}}>
-				      <RadioButtons
-				        options={ options }
-				        onSelection={ setSelectedOption.bind(this) }
-				        selectedOption={this.state.selectedOption }
-				        renderOption={ renderOption }
-				        renderContainer={ renderContainer }
-				      />
-				      <Text>Selected option: {this.state.selectedOption || 'none'}</Text>
+					<View style={styles.instructions}>
+						<Text style={{fontWeight: 'bold'}}>Question:</Text>
+						<View style={styles.line}></View>
+				    	<RadioButtons
+					        options={ options }
+					        onSelection={ setSelectedOption.bind(this) }
+					        selectedOption={this.state.selectedOption }
+					        renderOption={ renderOption }
+					        renderContainer={ renderContainer }
+				    	/>
+				    	<Text>Selected option: {this.state.selectedOption || 'none'}</Text>
 				    </View>
 				: null }
 
@@ -117,10 +119,15 @@ class Task extends Component {
 }
 
 const styles = StyleSheet.create({
+	line: {
+		borderWidth: 1,
+		borderColor: '#36333C'
+	},
 	instructions: {
-		height: 250,
+		padding: 10,
+		minHeight: 250,
 		margin: 10,
-		marginTop: 50,
+		marginTop: 25,
 		flex: 1,
 		backgroundColor: '#FFFFFF',
 		borderWidth: 2,
