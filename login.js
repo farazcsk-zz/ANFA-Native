@@ -95,7 +95,7 @@ class Login extends Component {
 						placeholder='Password'
 					/>
 					<TouchableHighlight style={styles.button} onPress={this.login} underlayColor='#36BA93'>
-						<Text style={{color: '#36333C'}}>LOGIN</Text>
+						<Text style={{color: '#36333C', fontFamily: 'Roboto-Light'}}>LOGIN</Text>
 					</TouchableHighlight>
 				</View>
 			</ScrollView>
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
 		borderWidth: 2,
 		borderColor: '#36BA93',
 		padding: 10,
-		margin: 10,
+		margin: 10
 	},
 
 	login: {
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
 		shadowOffset: {
 			height: 1,
 			width: 2
-		}
+		},
 	},
 
 	container: {
@@ -138,12 +138,14 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		textAlign: 'center',
 		margin: 10,
+		fontFamily: 'Roboto-Black'
 	},
 
 	instructions: {
 		textAlign: 'center',
 		color: '#36333C',
 		marginBottom: 5,
+		fontFamily: 'Roboto-Light'
 	},
 });
 

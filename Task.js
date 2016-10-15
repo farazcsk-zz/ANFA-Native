@@ -76,7 +76,7 @@ class Task extends Component {
 		  }
 		 
 		function renderOption(option, selected, onSelect, index){
-		    const style = selected ? { fontWeight: 'bold', backgroundColor: '#36BA93', color: '#FFFFFF'} : {};
+		    const style = selected ? { fontWeight: 'bold', backgroundColor: '#36BA93', color: '#FFFFFF', height: 35, margin:10, padding: 10} : {height: 35, margin:10, padding: 10};
 		 
 		    return (
 		      <TouchableHighlight onPress={onSelect} key={index}>
@@ -86,7 +86,7 @@ class Task extends Component {
 		  }
 		 
 	    function renderContainer(optionNodes){
-			return <View>{optionNodes}</View>;
+			return <ScrollView>{optionNodes}</ScrollView>;
 	    }
 		return (
 			<ScrollView style={styles.container}>
