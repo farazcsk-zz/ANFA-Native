@@ -68,12 +68,14 @@ class Task extends Component {
 				</View>
 				
 				
-				<View style={styles.instructions}>
+				{this.state.task.type != 'Learn' ? 
+					<View style={styles.instructions}>
 			          <Text>{this.state.task.answer}</Text>
 			          <Text>{this.state.task.wrongAnswers[0]}</Text>
 			          <Text>{this.state.task.wrongAnswers[1]}</Text>
 			          <Text>{this.state.task.wrongAnswers[2]}</Text>
-				</View>
+					</View> 
+				: null }
         		
 			</ScrollView>
 		);
