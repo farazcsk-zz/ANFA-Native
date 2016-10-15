@@ -81,14 +81,14 @@ class Login extends Component {
 						Please login to continue
 					</Text>
 					<TextInput
-						style={{height: 40, borderColor: 'transparent', borderBottomColor:'#36333C', borderWidth: 1, margin: 10}}
+						style={{height: 40, borderColor: 'transparent', borderBottomColor:'#36333C', borderWidth: 1, margin: 10, fontFamily: 'Roboto-Light'}}
 						onChangeText={(text) => this.setState({details:{username: text, password: this.state.details.password}})}
 						multiline={true}
 						autoCapitalize='none'
 						placeholder='Username'
 					/>
 					 <TextInput
-						style={{height: 40, borderColor: 'transparent', borderBottomColor:'#36333C', borderWidth: 1, margin: 10}}
+						style={{height: 40, borderColor: 'transparent', borderBottomColor:'#36333C', borderWidth: 1, margin: 10, fontFamily: 'Roboto-Light'}}
 						onChangeText={(text) => this.setState({details:{username:this.state.details.username, password: text}})}
 						multiline={true}
 						autoCapitalize='none'

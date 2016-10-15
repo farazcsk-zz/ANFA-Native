@@ -94,7 +94,8 @@ const styles = StyleSheet.create({
 	},
 	welcome: {
 		fontSize: 10,
-		padding:15
+		padding:15,
+		fontFamily: 'Roboto-Black'
 	},
 });
 

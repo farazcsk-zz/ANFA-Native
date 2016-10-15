@@ -76,7 +76,7 @@ class Task extends Component {
 		  }
 		 
 		function renderOption(option, selected, onSelect, index){
-		    const style = selected ? { fontWeight: 'bold', backgroundColor: '#36BA93', color: '#FFFFFF', height: 35, margin:10, padding: 10} : {height: 35, margin:10, padding: 10};
+		    const style = selected ? { fontWeight: 'bold', backgroundColor: '#36BA93', color: '#FFFFFF', height: 35, margin:10, padding: 10, fontFamily: 'Roboto-Black'} : {height: 35, margin:10, padding: 10, fontFamily: 'Roboto-Black'};
 		 
 		    return (
 		      <TouchableHighlight onPress={onSelect} key={index}>
@@ -91,7 +91,7 @@ class Task extends Component {
 		return (
 			<ScrollView style={styles.container}>
 				<View style={styles.instructions}>
-					<Text style={{fontWeight: 'bold'}}>{this.state.task.name}</Text>
+					<Text style={{fontWeight: 'bold', fontFamily: 'Roboto-Black'}}>{this.state.task.name}</Text>
 					<View style={styles.line}></View>
 					<WebView
 						source={{html: this.state.task.instructions}}
@@ -100,7 +100,7 @@ class Task extends Component {
 				
 				{this.state.task.type != 'Learn' ? 
 					<View style={styles.instructions}>
-						<Text style={{fontWeight: 'bold'}}>Question:</Text>
+						<Text style={{fontWeight: 'bold', fontFamily: 'Roboto-Black'}}>Question:</Text>
 						<View style={styles.line}></View>
 				    	<RadioButtons
 					        options={ options }
@@ -109,7 +109,7 @@ class Task extends Component {
 					        renderOption={ renderOption }
 					        renderContainer={ renderContainer }
 				    	/>
-				    	<Text>Selected option: {this.state.selectedOption || 'none'}</Text>
+				    	<Text style={{fontFamily: 'Roboto-LightItalic'}}>Selected option: {this.state.selectedOption || 'none'}</Text>
 				    </View>
 				: null }
 
