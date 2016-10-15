@@ -18,6 +18,7 @@ import {
 	WebView,
 	Modal
 } from 'react-native';
+import Task from './Task';
 
 
 class Worksheet extends Component {
@@ -29,8 +30,8 @@ class Worksheet extends Component {
 			worksheet: {
 				sections:[]
 			},
-			html: '',
-			modalVisible: false
+			modalVisible: false,
+			currentTaskId: ''
 		};
 
 		this.setModalVisible = this.setModalVisible.bind(this);
@@ -44,7 +45,7 @@ class Worksheet extends Component {
 		 fetch("http://localhost:3000/api/Worksheets/" + this.props.worksheetId +"?filter=%7B%22include%22%3A%7B%22relation%22%3A%22sections%22%2C%22scope%22%3A%7B%22order%22%3A%22number%20ASC%22%2C%22include%22%3A%7B%22relation%22%3A%22tasks%22%2C%22scope%22%3A%7B%22order%22%3A%22number%20ASC%22%7D%7D%7D%7D%7D&access_token=TbZ4UnDIN1jbRJ1xzVf5mTbEGkjR2kXZjEEeYVqiwHIwgytpFsjYCklHdIrzxBCW")
 		.then((response) => response.json())
 		.then((responseData) => {
-			this.setState({worksheet: responseData});
+			this.setState({worksheet: responseData, currentTaskId: responseData.sections[0].tasks[0].id});
 			// AlertIOS.alert(
 			//   "POST Response",
 			//   "Response Body -> " + JSON.stringify(responseData)
@@ -60,17 +61,9 @@ class Worksheet extends Component {
 	render() {
 		return (
 			<ScrollView style={styles.container}>
-				<View style={styles.instructions}>
-					<WebView
-						source={{html: this.state.html}}
-					/>
-					 <TouchableHighlight onPress={() => {
-			          this.setModalVisible(true)
-			        }}>
-			          <Text>Show Modal</Text>
-			        </TouchableHighlight>
-				</View>
-				
+				<Task
+					taskId={this.state.currentTaskId} 
+				/>
 				<Modal
 		        	animationType={"slide"}
 		        	transparent={false}te
@@ -90,11 +83,6 @@ class Worksheet extends Component {
 		          		</View>
 		         	</View>
         		</Modal>
-				
-				<View style={styles.instructions}>
-			          <Text>{this.state.answer}</Text>
-				</View>
-        		
 			</ScrollView>
 		);
 	}
