@@ -62,6 +62,7 @@ class Task extends Component {
 		return (
 			<ScrollView style={styles.container}>
 				<View style={styles.instructions}>
+					<Text>{this.state.task.name}</Text>
 					<WebView
 						source={{html: this.state.task.instructions}}
 					/>
@@ -69,10 +70,11 @@ class Task extends Component {
 				
 				{this.state.task.type != 'Learn' ? 
 					<View style={styles.instructions}>
-			          <Text>{this.state.task.answer}</Text>
-			          <Text>{this.state.task.wrongAnswers[0]}</Text>
-			          <Text>{this.state.task.wrongAnswers[1]}</Text>
-			          <Text>{this.state.task.wrongAnswers[2]}</Text>
+						<Text>Question:</Text>
+				        <Text>{this.state.task.answer}</Text>
+				        <Text>{this.state.task.wrongAnswers[0]}</Text>
+				        <Text>{this.state.task.wrongAnswers[1]}</Text>
+				        <Text>{this.state.task.wrongAnswers[2]}</Text>
 					</View> 
 				: null }
         		

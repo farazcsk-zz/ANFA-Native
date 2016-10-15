@@ -31,10 +31,14 @@ class Worksheet extends Component {
 				sections:[]
 			},
 			modalVisible: false,
-			currentTaskId: ''
+			currentTaskId: '',
+			currentSectionIndex: 0,
+			currentTaskIndex: 0
 		};
 
 		this.setModalVisible = this.setModalVisible.bind(this);
+		this.handleNext = this.handleNext.bind(this);
+		this.handlePrevious = this.handlePrevious.bind(this);
 	}
 
 	setModalVisible(visible) {
@@ -45,19 +49,34 @@ class Worksheet extends Component {
 		 fetch("http://localhost:3000/api/Worksheets/" + this.props.worksheetId +"?filter=%7B%22include%22%3A%7B%22relation%22%3A%22sections%22%2C%22scope%22%3A%7B%22order%22%3A%22number%20ASC%22%2C%22include%22%3A%7B%22relation%22%3A%22tasks%22%2C%22scope%22%3A%7B%22order%22%3A%22number%20ASC%22%7D%7D%7D%7D%7D&access_token=TbZ4UnDIN1jbRJ1xzVf5mTbEGkjR2kXZjEEeYVqiwHIwgytpFsjYCklHdIrzxBCW")
 		.then((response) => response.json())
 		.then((responseData) => {
-			this.setState({worksheet: responseData, currentTaskId: responseData.sections[0].tasks[0].id});
+			this.setState({
+				worksheet: responseData, 
+				currentTaskId: responseData.sections[0].tasks[0].id, 
+				currentSectionIndex: 0, 
+				currentTaskIndex: 0
+			});
 			// AlertIOS.alert(
 			//   "POST Response",
 			//   "Response Body -> " + JSON.stringify(responseData)
 			// )
 			// this.htmlCode = this.state.worksheet.sections[0].tasks[0].instructions;
-			this.setState({html: this.state.worksheet.sections[0].tasks[0].instructions });
-			this.setState({answer: this.state.worksheet.sections[0].tasks[0].answer });
-			this.setState({wrongAnswers: this.state.worksheet.sections[0].tasks[0].wrongAnswers });
 
 		})
 		.done();
 	}
+
+	handleNext(){
+		if(this.state.currentTaskIndex + 1 < this.state.worksheet.sections[this.state.currentSectionIndex].tasks.length) {
+			this.setState({currentTaskIndex: this.state.currentTaskIndex += 1, currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id})
+		}
+	}
+
+	handlePrevious(){
+		if(this.state.currentTaskIndex != 0) {
+			this.setState({currentTaskIndex: this.state.currentTaskIndex -= 1, currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id})
+		}
+	}
+
 	render() {
 		return (
 			<ScrollView style={styles.container}>
@@ -83,10 +102,10 @@ class Worksheet extends Component {
 		          		</View>
 		         	</View>
         		</Modal>
-        		<TouchableHighlight style={styles.button} underlayColor='#36BA93'>
+        		<TouchableHighlight style={styles.button} underlayColor='#36BA93' onPress={this.handlePrevious}>
 					<Text style={{color: '#36333C'}}>PREVIOUS</Text>
 				</TouchableHighlight>
-				<TouchableHighlight style={styles.button} underlayColor='#36BA93'>
+				<TouchableHighlight style={styles.button} underlayColor='#36BA93' onPress={this.handleNext}>
 					<Text style={{color: '#36333C'}}>NEXT</Text>
 				</TouchableHighlight>
 			</ScrollView>
