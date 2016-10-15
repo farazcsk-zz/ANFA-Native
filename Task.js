@@ -67,7 +67,6 @@ class Task extends Component {
 					/>
 				</View>
 				
-				
 				{this.state.task.type != 'Learn' ? 
 					<View style={styles.instructions}>
 			          <Text>{this.state.task.answer}</Text>

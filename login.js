@@ -78,17 +78,17 @@ class Login extends Component {
 						ANFA
 					</Text>
 					<Text style={styles.instructions}>
-						Please login below
+						Please login to continue
 					</Text>
 					<TextInput
-						style={{height: 40, borderColor: '#FFFFFF', borderBottomColor:'#36333C', borderWidth: 1, margin: 10}}
+						style={{height: 40, borderColor: 'transparent', borderBottomColor:'#36333C', borderWidth: 1, margin: 10}}
 						onChangeText={(text) => this.setState({details:{username: text, password: this.state.details.password}})}
 						multiline={true}
 						autoCapitalize='none'
 						placeholder='Username'
 					/>
 					 <TextInput
-						style={{height: 40, borderColor: '#FFFFFF', borderBottomColor:'#36333C', borderWidth: 1, margin: 10}}
+						style={{height: 40, borderColor: 'transparent', borderBottomColor:'#36333C', borderWidth: 1, margin: 10}}
 						onChangeText={(text) => this.setState({details:{username:this.state.details.username, password: text}})}
 						multiline={true}
 						autoCapitalize='none'
@@ -105,7 +105,7 @@ class Login extends Component {
 
 const styles = StyleSheet.create({
 	button: {
-		backgroundColor: '#FFFFFF',
+		backgroundColor: 'transparent',
 		borderWidth: 2,
 		borderColor: '#36BA93',
 		padding: 10,

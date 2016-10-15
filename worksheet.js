@@ -83,12 +83,25 @@ class Worksheet extends Component {
 		          		</View>
 		         	</View>
         		</Modal>
+        		<TouchableHighlight style={styles.button} underlayColor='#36BA93'>
+					<Text style={{color: '#36333C'}}>PREVIOUS</Text>
+				</TouchableHighlight>
+				<TouchableHighlight style={styles.button} underlayColor='#36BA93'>
+					<Text style={{color: '#36333C'}}>NEXT</Text>
+				</TouchableHighlight>
 			</ScrollView>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
+	button: {
+		backgroundColor: 'transparent',
+		borderWidth: 2,
+		borderColor: '#36BA93',
+		padding: 10,
+		margin: 10,
+	},
 	instructions: {
 		height: 250,
 		margin: 10,
