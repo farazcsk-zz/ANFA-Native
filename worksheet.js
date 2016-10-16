@@ -33,12 +33,18 @@ class Worksheet extends Component {
 			modalVisible: false,
 			currentTaskId: '',
 			currentSectionIndex: 0,
-			currentTaskIndex: 0
+			currentTaskIndex: 0,
+			possibleScore: 0,
+			totalScore: 0,
+			correctAnswers: [],
+			end: false
 		};
 
 		this.setModalVisible = this.setModalVisible.bind(this);
 		this.handleNext = this.handleNext.bind(this);
 		this.handlePrevious = this.handlePrevious.bind(this);
+		this.checkTask = this.checkTask.bind(this);
+		this.setScore = this.setScore.bind(this);
 	}
 
 	setModalVisible(visible) {
@@ -65,7 +71,27 @@ class Worksheet extends Component {
 		.done();
 	}
 
+	setScore(score) {
+		this.setState({totalScore: score})
+		AlertIOS.alert(
+	  		"END",
+	  		this.state.totalScore
+		)
+	}
+
+	checkTask() {
+		if(this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].type != 'Learn') {
+			var correctAnswers = this.state.correctAnswers;
+			correctAnswers.push(this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].answer)
+			this.setState({
+				possibleScore: this.state.possibleScore +=1,
+				correctAnswers: correctAnswers 
+			})
+		}
+	}
+
 	handleNext(){
+		this.checkTask();
 		if (this.state.worksheet.sections.length == this.state.currentSectionIndex + 1) {
 			if(this.state.currentTaskIndex + 1 < this.state.worksheet.sections[this.state.currentSectionIndex].tasks.length) {
 				this.setState({
@@ -73,10 +99,7 @@ class Worksheet extends Component {
 					currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id
 				})
 			} else {
-				AlertIOS.alert(
-			  		"END",
-			  		"END"
-				)
+				this.setState({end: true})
 			}
 		} else if(this.state.worksheet.sections[this.state.currentSectionIndex].tasks.length == this.state.currentTaskIndex + 1) {
 			this.setState({ 
@@ -119,12 +142,13 @@ class Worksheet extends Component {
 			<ScrollView style={styles.container}>
 				<Task
 					taskId={this.state.currentTaskId}
-					taskIndex={this.state.currentTaskIndex}
-					sectionIndex={this.state.currentSectionIndex} 
+					correctAnswers={this.state.correctAnswers}
+					end={this.state.end}
+					setScore={this.setScore}
 				/>
 				<Modal
 		        	animationType={"slide"}
-		        	transparent={false}te
+		        	transparent={false}
 		        	visible={this.state.modalVisible}
 		        	onRequestClose={() => {alert("Modal has been closed.")}}
 		        >

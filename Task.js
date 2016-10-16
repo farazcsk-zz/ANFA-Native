@@ -34,7 +34,9 @@ class Task extends Component {
 				instructions: '',
 				answer: '',
 				wrongAnswers: ["", "", ""]
-			}
+			},
+			answers: [],
+			score: 0
 		};
 
 		this.setModalVisible = this.setModalVisible.bind(this);
@@ -58,6 +60,14 @@ class Task extends Component {
 			})
 			.done();
 		}
+		if(nextProps.end !== this.props.end) {
+			for( let i = 0; i < this.state.answers.length; i++) {
+				if(this.props.correctAnswers.includes(this.state.answers[i])) {
+					this.setState({score: this.state.score += 1})
+				}
+			}
+			this.props.setScore(this.state.score);
+		}
 		 
 	}
 
@@ -70,9 +80,14 @@ class Task extends Component {
 		]
 
 		function setSelectedOption(selectedOption){
-		    this.setState({
-		      selectedOption
-		    });
+			var answers = this.state.answers;
+			if(!answers.includes(selectedOption)) {
+				answers.push(selectedOption);
+			    this.setState({
+			      selectedOption,
+			      answers: answers
+			    });
+			}
 		  }
 		 
 		function renderOption(option, selected, onSelect, index){
