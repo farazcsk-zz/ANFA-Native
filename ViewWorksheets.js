@@ -6,6 +6,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import {
+	LayoutAnimation,
 	AppRegistry,
 	StyleSheet,
 	ScrollView,
@@ -17,20 +18,28 @@ import {
 	TouchableHighlight
 } from 'react-native';
 import Worksheet from './worksheet';
+import {
+  Card,
+  CardImage,
+  CardTitle,
+  CardContent,
+  CardAction
+} from 'react-native-card-view';
+import Button from 'react-native-button';
+import * as Animatable from 'react-native-animatable';
 
 class ViewWorksheets extends Component {
 
 	constructor(props, context) {
 		super(props, context);
-	
+
 		this.state = {
 			worksheets: []
 		};
 		this.getWorksheets = this.getWorksheets.bind(this);
-		
+
 	}
 
- 
 	getWorksheets() {
 		fetch("http://localhost:3000/api/Worksheets?access_token=iTk6s6Boej92VgEFrKNnvg4rqD1uXjZmAUoNtHKgIqOwxi0LpnEToMK8SKYcjXuC")
 		.then((response) => response.json())
@@ -43,7 +52,7 @@ class ViewWorksheets extends Component {
 		})
 		.done();
 	}
-	
+
 	componentDidMount() {
 		this.getWorksheets()
 	}
@@ -51,7 +60,7 @@ class ViewWorksheets extends Component {
 
 	render() {
 
-		 var viewWorksheet = function(worksheet) {   
+		 var viewWorksheet = function(worksheet) {
 			this.props.navigator.push({
 				title: worksheet.title,
 				component: Worksheet,
@@ -59,14 +68,16 @@ class ViewWorksheets extends Component {
 			});
 		}.bind(this)
 
-		var worksheets = this.state.worksheets.map(function(worksheet) {
+		var worksheets = this.state.worksheets.map(function(worksheet, index) {
 			return (
-				<TouchableHighlight key={worksheet.id}  onPress={() => viewWorksheet(worksheet)} underlayColor='#36BA93' activeOpacity={0.25}>
-					<View style={styles.worksheet}>
-						<Text style={styles.welcome} >{worksheet.title}</Text>
-					</View>
-				</TouchableHighlight>
-			); 
+				<Animatable.View animation="slideInRight" delay={index * 100} duration={375} key={worksheet.id}>
+					<Card styles={card}>
+						<TouchableHighlight onPress={() => viewWorksheet(worksheet)} underlayColor='#36BA93' activeOpacity={0.25}>
+							<Text style={styles.welcome} >{worksheet.title}</Text>
+						</TouchableHighlight>
+					</Card>
+				</Animatable.View>
+			);
 		});
 
 		return (
@@ -76,22 +87,17 @@ class ViewWorksheets extends Component {
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	worksheet: {
-		flex: 0.5,
-		margin: 10,
-		borderRadius: 0,
-		borderWidth: 2,
-		borderColor: '#36333C',
-		shadowColor: 'rgba(0, 0, 0, 0.117647)',
-		shadowOpacity: 0.8,
-		shadowRadius: 2,
-		shadowOffset: {
-			height: 1,
-			width: 2
+const card = {
+		card: {
+			flex: 0.5,
+			margin: 10,
+			borderRadius: 0,
+			borderWidth: 2,
+			borderColor: '#36333C',
+			backgroundColor: 'transparent'
 		}
-	},
+}
+const styles = StyleSheet.create({
 	welcome: {
 		fontSize: 10,
 		padding:15,

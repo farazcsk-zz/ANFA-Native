@@ -18,6 +18,15 @@ import {
 	WebView,
 	Modal
 } from 'react-native';
+import {
+  Card,
+  CardImage,
+  CardTitle,
+  CardContent,
+  CardAction
+} from 'react-native-card-view';
+import Button from 'react-native-button';
+import * as Animatable from 'react-native-animatable';
 import Task from './Task';
 import ViewWorksheets from './ViewWorksheets';
 
@@ -25,7 +34,7 @@ import ViewWorksheets from './ViewWorksheets';
 class Worksheet extends Component {
 
 	constructor(props, context) {
-		super(props, context);  
+		super(props, context);
 
 		this.state = {
 			worksheet: {
@@ -54,15 +63,15 @@ class Worksheet extends Component {
     		this.props.navigator.pop();
     	}
   	}
-	
+
 	componentDidMount() {
 		 fetch("http://localhost:3000/api/Worksheets/" + this.props.worksheetId +"?filter=%7B%22include%22%3A%7B%22relation%22%3A%22sections%22%2C%22scope%22%3A%7B%22order%22%3A%22number%20ASC%22%2C%22include%22%3A%7B%22relation%22%3A%22tasks%22%2C%22scope%22%3A%7B%22order%22%3A%22number%20ASC%22%7D%7D%7D%7D%7D&access_token=TbZ4UnDIN1jbRJ1xzVf5mTbEGkjR2kXZjEEeYVqiwHIwgytpFsjYCklHdIrzxBCW")
 		.then((response) => response.json())
 		.then((responseData) => {
 			this.setState({
-				worksheet: responseData, 
-				currentTaskId: responseData.sections[0].tasks[0].id, 
-				currentSectionIndex: 0, 
+				worksheet: responseData,
+				currentTaskId: responseData.sections[0].tasks[0].id,
+				currentSectionIndex: 0,
 				currentTaskIndex: 0
 			});
 			// AlertIOS.alert(
@@ -86,7 +95,7 @@ class Worksheet extends Component {
 			correctAnswers.push(this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].answer)
 			this.setState({
 				possibleScore: this.state.possibleScore +=1,
-				correctAnswers: correctAnswers 
+				correctAnswers: correctAnswers
 			})
 		}
 	}
@@ -96,31 +105,31 @@ class Worksheet extends Component {
 		if (this.state.worksheet.sections.length == this.state.currentSectionIndex + 1) {
 			if(this.state.currentTaskIndex + 1 < this.state.worksheet.sections[this.state.currentSectionIndex].tasks.length) {
 				this.setState({
-					currentTaskIndex: this.state.currentTaskIndex += 1, 
+					currentTaskIndex: this.state.currentTaskIndex += 1,
 					currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id
 				})
 			} else {
 				this.setState({end: true})
 			}
 		} else if(this.state.worksheet.sections[this.state.currentSectionIndex].tasks.length == this.state.currentTaskIndex + 1) {
-			this.setState({ 
-				currentSectionIndex: this.state.currentSectionIndex += 1, 
-				currentTaskIndex: this.state.currentTaskIndex = 0,  
+			this.setState({
+				currentSectionIndex: this.state.currentSectionIndex += 1,
+				currentTaskIndex: this.state.currentTaskIndex = 0,
 				currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id
-			}); 
+			});
 		} else {
 			this.setState({
-				currentTaskIndex: this.state.currentTaskIndex += 1, 
+				currentTaskIndex: this.state.currentTaskIndex += 1,
 				currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id
 			})
 		}
 	}
 
 	handlePrevious(){
-		if (this.state.currentSectionIndex === 0) { 
+		if (this.state.currentSectionIndex === 0) {
 			if(this.state.currentTaskIndex != 0) {
 				this.setState({
-					currentTaskIndex: this.state.currentTaskIndex -= 1, 
+					currentTaskIndex: this.state.currentTaskIndex -= 1,
 					currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id
 				})
 			}
@@ -132,7 +141,7 @@ class Worksheet extends Component {
 			})
 		} else {
 			this.setState({
-				currentTaskIndex: this.state.currentTaskIndex -= 1, 
+				currentTaskIndex: this.state.currentTaskIndex -= 1,
 				currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id
 			})
 		}
@@ -163,20 +172,22 @@ class Worksheet extends Component {
 		        		<Text style={styles.score}>See how you did below: </Text>
 	            		<Text style={styles.score}>{this.state.totalScore}/{this.state.possibleScore}</Text>
 
-			            <TouchableHighlight underlayColor='#36BA93' onPress={() => {
-			              this.setModalVisible(!this.state.modalVisible)
-			            }}>
-		              		<Text style={styles.finish}>FINISH</Text>
-		            	</TouchableHighlight>
+						<Animatable.View animation="bounce" iterationCount={5}>
+				            <Button onPress={() => {
+				              this.setModalVisible(!this.state.modalVisible)
+				            }}>
+			              		<Text style={styles.finish}>FINISH</Text>
+			            	</Button>
+						</Animatable.View>
 
 		         	</ScrollView>
         		</Modal>
-        		<TouchableHighlight style={styles.button} underlayColor='#36BA93' onPress={this.handlePrevious}>
+        		<Button containerStyle={styles.button} onPress={this.handlePrevious}>
 					<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>PREVIOUS</Text>
-				</TouchableHighlight>
-				<TouchableHighlight style={styles.button} underlayColor='#36BA93' onPress={this.handleNext}>
+				</Button>
+				<Button containerStyle={styles.button} onPress={this.handleNext}>
 					<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>NEXT</Text>
-				</TouchableHighlight>
+				</Button>
 			</ScrollView>
 		);
 	}
@@ -216,7 +227,7 @@ const styles = StyleSheet.create({
 		borderColor: '#36BA93',
 		padding: 10,
 		margin: 10,
-		
+
 	},
 	instructions: {
 		height: 250,
