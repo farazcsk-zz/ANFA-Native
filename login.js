@@ -24,6 +24,7 @@ import {
   CardAction
 } from 'react-native-card-view';
 import Button from 'react-native-button';
+import * as Animatable from 'react-native-animatable';
 import ViewWorksheets from './ViewWorksheets';
 
 
@@ -81,35 +82,37 @@ class Login extends Component {
 	render() {
 		return (
 			<ScrollView style={styles.container}>
-				<Card styles={card}>
-					<CardTitle>
-						<Text style={styles.welcome}>
-							ANFA
+				<Animatable.View animation="bounceInDown">
+					<Card styles={card}>
+						<CardTitle>
+							<Text style={styles.welcome}>
+								ANFA
+							</Text>
+						</CardTitle>
+						<Text style={styles.instructions}>
+							Please login to continue
 						</Text>
-					</CardTitle>
-					<Text style={styles.instructions}>
-						Please login to continue
-					</Text>
-					<TextInput
-						style={{height: 40, borderColor: 'transparent', borderBottomColor:'#36333C', borderWidth: 1, margin: 10, fontFamily: 'Roboto-Light'}}
-						onChangeText={(text) => this.setState({details:{username: text, password: this.state.details.password}})}
-						multiline={true}
-						autoCapitalize='none'
-						placeholder='Username'
-					/>
-					 <TextInput
-						style={{height: 40, borderColor: 'transparent', borderBottomColor:'#36333C', borderWidth: 1, margin: 10, fontFamily: 'Roboto-Light'}}
-						onChangeText={(text) => this.setState({details:{username:this.state.details.username, password: text}})}
-						multiline={true}
-						autoCapitalize='none'
-						placeholder='Password'
-					/>
-					<CardAction>
-						<TouchableHighlight style={styles.button} onPress={this.login} underlayColor='#36BA93'>
-							<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>LOGIN</Text>
-						</TouchableHighlight>
-					</CardAction>
-				</Card>
+						<TextInput
+							style={{height: 40, borderColor: 'transparent', borderBottomColor:'#36333C', borderWidth: 1, margin: 10, fontFamily: 'Roboto-Light'}}
+							onChangeText={(text) => this.setState({details:{username: text, password: this.state.details.password}})}
+							multiline={true}
+							autoCapitalize='none'
+							placeholder='Username'
+						/>
+						 <TextInput
+							style={{height: 40, borderColor: 'transparent', borderBottomColor:'#36333C', borderWidth: 1, margin: 10, fontFamily: 'Roboto-Light'}}
+							onChangeText={(text) => this.setState({details:{username:this.state.details.username, password: text}})}
+							multiline={true}
+							autoCapitalize='none'
+							placeholder='Password'
+						/>
+						<CardAction>
+							<TouchableHighlight style={styles.button} onPress={this.login} underlayColor='#36BA93'>
+								<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>LOGIN</Text>
+							</TouchableHighlight>
+						</CardAction>
+					</Card>
+				</Animatable.View>
 			</ScrollView>
 		);
 	}
