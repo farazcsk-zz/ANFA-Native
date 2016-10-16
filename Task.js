@@ -18,6 +18,15 @@ import {
 	WebView,
 	Modal
 } from 'react-native';
+import {
+  Card,
+  CardImage,
+  CardTitle,
+  CardContent,
+  CardAction
+} from 'react-native-card-view';
+import Button from 'react-native-button';
+import * as Animatable from 'react-native-animatable';
 import { RadioButtons } from 'react-native-radio-buttons';
 import { Hr } from 'react-native-hr';
 
@@ -25,7 +34,7 @@ import { Hr } from 'react-native-hr';
 class Task extends Component {
 
 	constructor(props, context) {
-		super(props, context);  
+		super(props, context);
 
 		this.state = {
 			task: {
@@ -45,7 +54,7 @@ class Task extends Component {
 	setModalVisible(visible) {
     	this.setState({modalVisible: visible});
   	}
-	
+
 	componentWillReceiveProps(nextProps) {
 		if(nextProps.taskId !== this.props.taskId){
 			fetch("http://localhost:3000/api/Tasks/" + nextProps.taskId +"?access_token=TbZ4UnDIN1jbRJ1xzVf5mTbEGkjR2kXZjEEeYVqiwHIwgytpFsjYCklHdIrzxBCW")
@@ -68,7 +77,7 @@ class Task extends Component {
 			}
 			this.props.setScore(parseInt(JSON.stringify(this.state.score)));
 		}
-		 
+
 	}
 
 	render() {
@@ -89,16 +98,16 @@ class Task extends Component {
 			    });
 			}
 		  }
-		 
+
 		function renderOption(option, selected, onSelect, index){
-		    const style = selected ? { 
-		    	fontWeight: 'bold', 
-		    	backgroundColor: '#36BA93', 
-		    	color: '#FFFFFF', 
-		    	height: 35, 
-		    	margin:10, 
-		    	padding: 10, 
-		    	fontFamily: 'Roboto-Medium', 
+		    const style = selected ? {
+		    	fontWeight: 'bold',
+		    	backgroundColor: '#36BA93',
+		    	color: '#FFFFFF',
+		    	height: 35,
+		    	margin:10,
+		    	padding: 10,
+		    	fontFamily: 'Roboto-Medium',
 		    	textAlign: 'center',
 		    	shadowColor: 'rgba(0, 0, 0, 0.117647)',
 				shadowOpacity: 0.8,
@@ -107,14 +116,14 @@ class Task extends Component {
 					height: 1,
 					width: 2
 				},
-		    } : 
+		    } :
 		    {
 		    	backgroundColor: 'rgb(151, 151, 151)',
-		    	color: '#FFFFFF', 
-		    	height: 35, 
-		    	margin:10, 
-		    	padding: 10, 
-		    	fontFamily: 'Roboto-Medium', 
+		    	color: '#FFFFFF',
+		    	height: 35,
+		    	margin:10,
+		    	padding: 10,
+		    	fontFamily: 'Roboto-Medium',
 		    	textAlign: 'center',
 		    	shadowColor: 'rgba(0, 0, 0, 0.117647)',
 				shadowOpacity: 0.8,
@@ -124,40 +133,44 @@ class Task extends Component {
 					width: 2
 				},
 		    };
-		 
+
 		    return (
 		      <TouchableHighlight onPress={onSelect} key={index} underlayColor='#36BA93'>
 		        <Text style={style}>{option}</Text>
 		      </TouchableHighlight>
 		    );
 		  }
-		 
+
 	    function renderContainer(optionNodes){
 			return <ScrollView>{optionNodes}</ScrollView>;
 	    }
 		return (
 			<ScrollView style={styles.container}>
-				<View style={styles.instructions}>
-					<Text style={{fontWeight: 'bold', fontFamily: 'Roboto-Black'}}>{this.state.task.name}</Text>
-					<View style={styles.line}></View>
-					<WebView
-						source={{html: this.state.task.instructions}}
-					/>
-				</View>
-				
-				{this.state.task.type != 'Learn' ? 
+				<Animatable.View animation="slideInDown" duration={550}>
 					<View style={styles.instructions}>
-						<Text style={{fontWeight: 'bold', fontFamily: 'Roboto-Black'}}>Question:</Text>
+						<Text style={{fontWeight: 'bold', fontFamily: 'Roboto-Black'}}>{this.state.task.name}</Text>
 						<View style={styles.line}></View>
-				    	<RadioButtons
-					        options={ options }
-					        onSelection={ setSelectedOption.bind(this) }
-					        selectedOption={this.state.selectedOption }
-					        renderOption={ renderOption }
-					        renderContainer={ renderContainer }
-				    	/>
-				    	<Text style={{fontFamily: 'Roboto-LightItalic'}}>Selected option: {this.state.selectedOption || 'none'}</Text>
-				    </View>
+						<WebView
+							source={{html: this.state.task.instructions}}
+						/>
+					</View>
+				</Animatable.View>
+
+				{this.state.task.type != 'Learn' ?
+					<Animatable.View animation="slideInUp" duration={550}>
+						<View style={styles.instructions}>
+							<Text style={{fontWeight: 'bold', fontFamily: 'Roboto-Black'}}>Question:</Text>
+							<View style={styles.line}></View>
+					    	<RadioButtons
+						        options={ options }
+						        onSelection={ setSelectedOption.bind(this) }
+						        selectedOption={this.state.selectedOption }
+						        renderOption={ renderOption }
+						        renderContainer={ renderContainer }
+					    	/>
+					    	<Text style={{fontFamily: 'Roboto-LightItalic'}}>Selected option: {this.state.selectedOption || 'none'}</Text>
+					    </View>
+					</Animatable.View>
 				: null }
 
 			</ScrollView>
