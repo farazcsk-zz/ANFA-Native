@@ -72,13 +72,18 @@ class Worksheet extends Component {
 					currentTaskIndex: this.state.currentTaskIndex += 1, 
 					currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id
 				})
+			} else {
+				AlertIOS.alert(
+			  		"END",
+			  		"END"
+				)
 			}
 		} else if(this.state.worksheet.sections[this.state.currentSectionIndex].tasks.length == this.state.currentTaskIndex + 1) {
 			this.setState({ 
 				currentSectionIndex: this.state.currentSectionIndex += 1, 
 				currentTaskIndex: this.state.currentTaskIndex = 0,  
 				currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id
-			});
+			}); 
 		} else {
 			this.setState({
 				currentTaskIndex: this.state.currentTaskIndex += 1, 
