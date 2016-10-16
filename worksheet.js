@@ -33,12 +33,18 @@ class Worksheet extends Component {
 			modalVisible: false,
 			currentTaskId: '',
 			currentSectionIndex: 0,
-			currentTaskIndex: 0
+			currentTaskIndex: 0,
+			possibleScore: 0,
+			totalScore: 0,
+			correctAnswers: [],
+			end: false
 		};
 
 		this.setModalVisible = this.setModalVisible.bind(this);
 		this.handleNext = this.handleNext.bind(this);
 		this.handlePrevious = this.handlePrevious.bind(this);
+		this.checkTask = this.checkTask.bind(this);
+		this.setScore = this.setScore.bind(this);
 	}
 
 	setModalVisible(visible) {
@@ -65,20 +71,39 @@ class Worksheet extends Component {
 		.done();
 	}
 
+	setScore(score) {
+		this.setState({totalScore: parseInt(JSON.stringify(score))})
+		this.setModalVisible();
+	}
+
+	checkTask() {
+		if(this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].type != 'Learn') {
+			var correctAnswers = this.state.correctAnswers;
+			correctAnswers.push(this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].answer)
+			this.setState({
+				possibleScore: this.state.possibleScore +=1,
+				correctAnswers: correctAnswers 
+			})
+		}
+	}
+
 	handleNext(){
+		this.checkTask();
 		if (this.state.worksheet.sections.length == this.state.currentSectionIndex + 1) {
 			if(this.state.currentTaskIndex + 1 < this.state.worksheet.sections[this.state.currentSectionIndex].tasks.length) {
 				this.setState({
 					currentTaskIndex: this.state.currentTaskIndex += 1, 
 					currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id
 				})
+			} else {
+				this.setState({end: true})
 			}
 		} else if(this.state.worksheet.sections[this.state.currentSectionIndex].tasks.length == this.state.currentTaskIndex + 1) {
 			this.setState({ 
 				currentSectionIndex: this.state.currentSectionIndex += 1, 
 				currentTaskIndex: this.state.currentTaskIndex = 0,  
 				currentTaskId: this.state.worksheet.sections[this.state.currentSectionIndex].tasks[this.state.currentTaskIndex].id
-			});
+			}); 
 		} else {
 			this.setState({
 				currentTaskIndex: this.state.currentTaskIndex += 1, 
@@ -114,27 +139,30 @@ class Worksheet extends Component {
 			<ScrollView style={styles.container}>
 				<Task
 					taskId={this.state.currentTaskId}
-					taskIndex={this.state.currentTaskIndex}
-					sectionIndex={this.state.currentSectionIndex} 
+					correctAnswers={this.state.correctAnswers}
+					end={this.state.end}
+					setScore={this.setScore}
 				/>
 				<Modal
 		        	animationType={"slide"}
-		        	transparent={false}te
+		        	transparent={false}
 		        	visible={this.state.modalVisible}
 		        	onRequestClose={() => {alert("Modal has been closed.")}}
 		        >
-		        	<View style={{marginTop: 22}}>
-		        		<View>
-		            		<Text>Hello World!</Text>
+		        	<ScrollView style={styles.modal}>
+		        		<Text style={styles.score}>You have completed:</Text>
+		        		<Text style={styles.score}>{this.state.worksheet.title}</Text>
+		        		<View style={styles.line}></View>
+		        		<Text style={styles.score}>See how you did below: </Text>
+	            		<Text style={styles.score}>{this.state.totalScore}/{this.state.possibleScore}</Text>
 
-				            <TouchableHighlight onPress={() => {
-				              this.setModalVisible(!this.state.modalVisible)
-				            }}>
-			              		<Text>Hide Modal</Text>
-			            	</TouchableHighlight>
+			            <TouchableHighlight underlayColor='#36BA93' onPress={() => {
+			              this.setModalVisible(!this.state.modalVisible)
+			            }}>
+		              		<Text style={styles.finish}>FINISH</Text>
+		            	</TouchableHighlight>
 
-		          		</View>
-		         	</View>
+		         	</ScrollView>
         		</Modal>
         		<TouchableHighlight style={styles.button} underlayColor='#36BA93' onPress={this.handlePrevious}>
 					<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>PREVIOUS</Text>
@@ -148,6 +176,33 @@ class Worksheet extends Component {
 }
 
 const styles = StyleSheet.create({
+	score: {
+		marginTop: 5,
+		marginBottom: 5,
+		color: '#FFFFFF',
+		fontSize: 50,
+		fontFamily: 'roboto-boldItalic',
+		textAlign: 'center',
+	},
+	finish: {
+		marginTop: 5,
+		marginBottom: 5,
+		color: '#36BA93',
+		fontSize: 50,
+		fontFamily: 'roboto-boldItalic',
+		textAlign: 'center',
+	},
+	line: {
+		borderWidth: 1,
+		borderColor: '#FFFFFF',
+		marginTop: 5,
+		marginBottom: 5
+	},
+	modal: {
+		backgroundColor: '#393939',
+		padding:20,
+		paddingTop: 50,
+	},
 	button: {
 		backgroundColor: 'transparent',
 		borderWidth: 2,
