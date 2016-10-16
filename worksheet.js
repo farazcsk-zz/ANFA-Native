@@ -149,18 +149,20 @@ class Worksheet extends Component {
 		        	visible={this.state.modalVisible}
 		        	onRequestClose={() => {alert("Modal has been closed.")}}
 		        >
-		        	<View style={{marginTop: 22}}>
-		        		<View style={styles.instructions}>
-		            		<Text>{this.state.totalScore}</Text>
+		        	<ScrollView style={styles.modal}>
+		        		<Text style={styles.score}>You have completed:</Text>
+		        		<Text style={styles.score}>{this.state.worksheet.title}</Text>
+		        		<View style={styles.line}></View>
+		        		<Text style={styles.score}>See how you did below: </Text>
+	            		<Text style={styles.score}>{this.state.totalScore}/{this.state.possibleScore}</Text>
 
-				            <TouchableHighlight style={styles.button} underlayColor='#36BA93' onPress={() => {
-				              this.setModalVisible(!this.state.modalVisible)
-				            }}>
-			              		<Text>FINISH</Text>
-			            	</TouchableHighlight>
+			            <TouchableHighlight underlayColor='#36BA93' onPress={() => {
+			              this.setModalVisible(!this.state.modalVisible)
+			            }}>
+		              		<Text style={styles.finish}>FINISH</Text>
+		            	</TouchableHighlight>
 
-		          		</View>
-		         	</View>
+		         	</ScrollView>
         		</Modal>
         		<TouchableHighlight style={styles.button} underlayColor='#36BA93' onPress={this.handlePrevious}>
 					<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>PREVIOUS</Text>
@@ -174,6 +176,33 @@ class Worksheet extends Component {
 }
 
 const styles = StyleSheet.create({
+	score: {
+		marginTop: 5,
+		marginBottom: 5,
+		color: '#FFFFFF',
+		fontSize: 50,
+		fontFamily: 'roboto-boldItalic',
+		textAlign: 'center',
+	},
+	finish: {
+		marginTop: 5,
+		marginBottom: 5,
+		color: '#36BA93',
+		fontSize: 50,
+		fontFamily: 'roboto-boldItalic',
+		textAlign: 'center',
+	},
+	line: {
+		borderWidth: 1,
+		borderColor: '#FFFFFF',
+		marginTop: 5,
+		marginBottom: 5
+	},
+	modal: {
+		backgroundColor: '#393939',
+		padding:20,
+		paddingTop: 50,
+	},
 	button: {
 		backgroundColor: 'transparent',
 		borderWidth: 2,
