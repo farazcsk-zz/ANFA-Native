@@ -19,6 +19,7 @@ import {
 	Modal
 } from 'react-native';
 import Task from './Task';
+import ViewWorksheets from './ViewWorksheets';
 
 
 class Worksheet extends Component {
@@ -49,6 +50,9 @@ class Worksheet extends Component {
 
 	setModalVisible(visible) {
     	this.setState({modalVisible: visible});
+    	if(visible == !this.state.modalVisible){
+    		this.props.navigator.pop();
+    	}
   	}
 	
 	componentDidMount() {
@@ -147,7 +151,10 @@ class Worksheet extends Component {
 		        	animationType={"slide"}
 		        	transparent={false}
 		        	visible={this.state.modalVisible}
-		        	onRequestClose={() => {alert("Modal has been closed.")}}
+		        	onRequestClose={() => {AlertIOS.alert(
+			  			"YOU ARE DONE BRUV",
+			  			"->"
+					)}}
 		        >
 		        	<ScrollView style={styles.modal}>
 		        		<Text style={styles.score}>You have completed:</Text>
