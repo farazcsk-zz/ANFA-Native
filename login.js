@@ -82,7 +82,7 @@ class Login extends Component {
 	render() {
 		return (
 			<ScrollView style={styles.container}>
-				<Animatable.View animation="bounceInDown">
+				<Animatable.View animation="bounceInDown" duration={550}>
 					<Card styles={card}>
 						<CardTitle>
 							<Text style={styles.welcome}>
@@ -107,9 +107,9 @@ class Login extends Component {
 							placeholder='Password'
 						/>
 						<CardAction>
-							<TouchableHighlight style={styles.button} onPress={this.login} underlayColor='#36BA93'>
+							<Button containerStyle={styles.button} onPress={this.login}>
 								<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>LOGIN</Text>
-							</TouchableHighlight>
+							</Button>
 						</CardAction>
 					</Card>
 				</Animatable.View>
