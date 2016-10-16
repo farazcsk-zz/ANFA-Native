@@ -125,15 +125,8 @@ const card = {
 			alignItems: 'center',
 			backgroundColor: '#FFFFFF',
 			borderWidth: 2,
-			borderColor: '#36BA93',
-			shadowColor: 'rgba(0, 0, 0, 0.117647)',
-			shadowOpacity: 0.8,
-			shadowRadius: 2,
-			shadowOffset: {
-				height: 1,
-				width: 2
-			}
-	}
+			borderColor: '#36BA93'
+		}
 }
 const styles = StyleSheet.create({
 	button: {
@@ -150,25 +143,6 @@ const styles = StyleSheet.create({
 			width: 2
 		},
 	},
-
-	login: {
-		marginTop:150,
-		margin: 20,
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#FFFFFF',
-		borderWidth: 2,
-		borderColor: '#36BA93',
-		shadowColor: 'rgba(0, 0, 0, 0.117647)',
-		shadowOpacity: 0.8,
-		shadowRadius: 2,
-		shadowOffset: {
-			height: 1,
-			width: 2
-		},
-	},
-
 	container: {
 		paddingTop:100,
 		backgroundColor: '#F3F3F3'
