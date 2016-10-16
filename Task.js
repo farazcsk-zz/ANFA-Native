@@ -146,7 +146,7 @@ class Task extends Component {
 	    }
 		return (
 			<ScrollView style={styles.container}>
-				<Animatable.View animation="slideInDown" duration={550}>
+				<Animatable.View animation="slideInDown" duration={250}>
 					<View style={styles.instructions}>
 						<Text style={{fontWeight: 'bold', fontFamily: 'Roboto-Black'}}>{this.state.task.name}</Text>
 						<View style={styles.line}></View>
@@ -157,7 +157,7 @@ class Task extends Component {
 				</Animatable.View>
 
 				{this.state.task.type != 'Learn' ?
-					<Animatable.View animation="slideInUp" duration={550}>
+					<Animatable.View animation="slideInUp" duration={250}>
 						<View style={styles.instructions}>
 							<Text style={{fontWeight: 'bold', fontFamily: 'Roboto-Black'}}>Question:</Text>
 							<View style={styles.line}></View>

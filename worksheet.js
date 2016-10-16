@@ -172,11 +172,13 @@ class Worksheet extends Component {
 		        		<Text style={styles.score}>See how you did below: </Text>
 	            		<Text style={styles.score}>{this.state.totalScore}/{this.state.possibleScore}</Text>
 
-			            <TouchableHighlight underlayColor='#36BA93' onPress={() => {
-			              this.setModalVisible(!this.state.modalVisible)
-			            }}>
-		              		<Text style={styles.finish}>FINISH</Text>
-		            	</TouchableHighlight>
+						<Animatable.View animation="bounce" iterationCount={5}>
+				            <Button onPress={() => {
+				              this.setModalVisible(!this.state.modalVisible)
+				            }}>
+			              		<Text style={styles.finish}>FINISH</Text>
+			            	</Button>
+						</Animatable.View>
 
 		         	</ScrollView>
         		</Modal>
