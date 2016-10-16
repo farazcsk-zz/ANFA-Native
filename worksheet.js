@@ -72,11 +72,7 @@ class Worksheet extends Component {
 	}
 
 	setScore(score) {
-		this.setState({totalScore: score})
-		AlertIOS.alert(
-	  		"END",
-	  		this.state.totalScore
-		)
+		this.setState({totalScore: parseInt(JSON.stringify(score))})
 	}
 
 	checkTask() {
@@ -171,6 +167,7 @@ class Worksheet extends Component {
 				<TouchableHighlight style={styles.button} underlayColor='#36BA93' onPress={this.handleNext}>
 					<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>NEXT</Text>
 				</TouchableHighlight>
+				<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>{this.state.totalScore}</Text>
 			</ScrollView>
 		);
 	}

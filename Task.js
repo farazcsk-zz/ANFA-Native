@@ -66,7 +66,7 @@ class Task extends Component {
 					this.setState({score: this.state.score += 1})
 				}
 			}
-			this.props.setScore(this.state.score);
+			this.props.setScore(parseInt(JSON.stringify(this.state.score)));
 		}
 		 
 	}
