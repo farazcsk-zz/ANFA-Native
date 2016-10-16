@@ -73,6 +73,7 @@ class Worksheet extends Component {
 
 	setScore(score) {
 		this.setState({totalScore: parseInt(JSON.stringify(score))})
+		this.setModalVisible();
 	}
 
 	checkTask() {
@@ -149,13 +150,13 @@ class Worksheet extends Component {
 		        	onRequestClose={() => {alert("Modal has been closed.")}}
 		        >
 		        	<View style={{marginTop: 22}}>
-		        		<View>
-		            		<Text>Hello World!</Text>
+		        		<View style={styles.instructions}>
+		            		<Text>{this.state.totalScore}</Text>
 
-				            <TouchableHighlight onPress={() => {
+				            <TouchableHighlight style={styles.button} underlayColor='#36BA93' onPress={() => {
 				              this.setModalVisible(!this.state.modalVisible)
 				            }}>
-			              		<Text>Hide Modal</Text>
+			              		<Text>FINISH</Text>
 			            	</TouchableHighlight>
 
 		          		</View>
@@ -167,7 +168,6 @@ class Worksheet extends Component {
 				<TouchableHighlight style={styles.button} underlayColor='#36BA93' onPress={this.handleNext}>
 					<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>NEXT</Text>
 				</TouchableHighlight>
-				<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>{this.state.totalScore}</Text>
 			</ScrollView>
 		);
 	}
