@@ -16,6 +16,14 @@ import {
 	AlertIOS,
 	TouchableHighlight
 } from 'react-native';
+import {
+  Card,
+  CardImage,
+  CardTitle,
+  CardContent,
+  CardAction
+} from 'react-native-card-view';
+import Button from 'react-native-button';
 import ViewWorksheets from './ViewWorksheets';
 
 
@@ -23,7 +31,7 @@ class Login extends Component {
 
 	constructor(props, context) {
 		super(props, context);
-	
+
 		this.state = {
 			details:{
 				username: '',
@@ -47,11 +55,11 @@ class Login extends Component {
 		fetch("http://localhost:3000/api/Accounts/login", {
 			method: "POST",
 			headers:{
-				"Accept": "application/json", 
-				"Content-Type": "application/json" 
-			}, 
+				"Accept": "application/json",
+				"Content-Type": "application/json"
+			},
 			body: JSON.stringify({
-				username: this.state.details.username, 
+				username: this.state.details.username,
 				password: this.state.details.password
 			})
 		})
@@ -69,14 +77,16 @@ class Login extends Component {
 		})
 		.done();
 	}
-	
+
 	render() {
 		return (
 			<ScrollView style={styles.container}>
-				<View style={styles.login}>
-					<Text style={styles.welcome}>
-						ANFA
-					</Text>
+				<Card styles={card}>
+					<CardTitle>
+						<Text style={styles.welcome}>
+							ANFA
+						</Text>
+					</CardTitle>
 					<Text style={styles.instructions}>
 						Please login to continue
 					</Text>
@@ -94,15 +104,37 @@ class Login extends Component {
 						autoCapitalize='none'
 						placeholder='Password'
 					/>
-					<TouchableHighlight style={styles.button} onPress={this.login} underlayColor='#36BA93'>
-						<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>LOGIN</Text>
-					</TouchableHighlight>
-				</View>
+					<CardAction>
+						<TouchableHighlight style={styles.button} onPress={this.login} underlayColor='#36BA93'>
+							<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>LOGIN</Text>
+						</TouchableHighlight>
+					</CardAction>
+				</Card>
 			</ScrollView>
 		);
 	}
 }
 
+
+const card = {
+		card: {
+			marginTop:50,
+			margin: 20,
+			flex: 1,
+			justifyContent: 'center',
+			alignItems: 'center',
+			backgroundColor: '#FFFFFF',
+			borderWidth: 2,
+			borderColor: '#36BA93',
+			shadowColor: 'rgba(0, 0, 0, 0.117647)',
+			shadowOpacity: 0.8,
+			shadowRadius: 2,
+			shadowOffset: {
+				height: 1,
+				width: 2
+			}
+	}
+}
 const styles = StyleSheet.create({
 	button: {
 		backgroundColor: 'transparent',
@@ -121,7 +153,7 @@ const styles = StyleSheet.create({
 
 	login: {
 		marginTop:150,
-		margin: 10,
+		margin: 20,
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -138,6 +170,7 @@ const styles = StyleSheet.create({
 	},
 
 	container: {
+		paddingTop:100,
 		backgroundColor: '#F3F3F3'
 	},
 
