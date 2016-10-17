@@ -150,6 +150,12 @@ class Worksheet extends Component {
 	render() {
 		return (
 			<ScrollView style={styles.container}>
+				<Button containerStyle={styles.button} onPress={this.handlePrevious}>
+					<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>PREVIOUS</Text>
+				</Button>
+				<Button containerStyle={styles.button} onPress={this.handleNext}>
+					<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>NEXT</Text>
+				</Button>
 				<Task
 					taskId={this.state.currentTaskId}
 					correctAnswers={this.state.correctAnswers}
@@ -182,12 +188,6 @@ class Worksheet extends Component {
 
 		         	</ScrollView>
         		</Modal>
-        		<Button containerStyle={styles.button} onPress={this.handlePrevious}>
-					<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>PREVIOUS</Text>
-				</Button>
-				<Button containerStyle={styles.button} onPress={this.handleNext}>
-					<Text style={{color: '#36333C', fontFamily: 'Roboto-Medium'}}>NEXT</Text>
-				</Button>
 			</ScrollView>
 		);
 	}
